@@ -1,0 +1,21 @@
+singleuser:
+  defaultUrl: "/lab"
+  storage:
+    capacity: 100Gi
+  extraEnv:
+    JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+  profileList:
+    - display_name: "Minimal environment"
+      description: "To avoid too much bells and whistles: Python."
+      default: true
+    - display_name: "GPU Server"
+      description: "Spawns a notebook server with access to a GPU"
+      kubespawner_override:
+        extra_resource_limits:
+          nvidia.com/gpu: "1"
+  networkPolicy:
+    egressAllowRules:
+      cloudMetadataServer: true
+      privateIPs: true
+  cloudMetadata:
+    blockWithIptables: false

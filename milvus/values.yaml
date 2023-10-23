@@ -1,0 +1,31 @@
+cluster:
+  enabled: false
+service:
+  type: LoadBalancer
+minio:
+  enabled: false
+etcd:
+  replicaCount: 1
+pulsar:
+  enabled: false
+attu:
+  enabled: true
+  name: attu
+  service:
+    type: LoadBalancer
+
+###################################
+# External S3
+# - these configs are only used when `externalS3.enabled` is true
+###################################
+externalS3:
+  enabled: truew
+  host: "10.54.78.42"
+  port: "80"
+  accessKey: "AAA"
+  secretKey: "BBB"
+  useSSL: false
+  bucketName: "milvus"
+  rootPath: ""
+  region: "us-east-1"
+  useVirtualHost: false
