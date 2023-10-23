@@ -1,13 +1,16 @@
-cluster:
-  enabled: true
+standalone:
+  replicas: 1
+  resources:
+    limits:
+      cpu: "12.0"
+      memory: 16Gi
+    requests:
+      cpu: "12.0"
+      memory: 16Gi
 service:
   type: LoadBalancer
 minio:
   enabled: false
-etcd:
-  replicaCount: 3
-pulsar:
-  enabled: true
 attu:
   enabled: true
   name: attu
@@ -19,7 +22,7 @@ attu:
 # - these configs are only used when `externalS3.enabled` is true
 ###################################
 externalS3:
-  enabled: truew
+  enabled: true
   host: "10.54.78.42"
   port: "80"
   accessKey: "AAA"
