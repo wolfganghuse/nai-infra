@@ -1,13 +1,13 @@
 cluster:
-  enabled: false
+  enabled: true
 service:
   type: LoadBalancer
 minio:
   enabled: false
 etcd:
-  replicaCount: 1
+  replicaCount: 3
 pulsar:
-  enabled: false
+  enabled: true
 attu:
   enabled: true
   name: attu
