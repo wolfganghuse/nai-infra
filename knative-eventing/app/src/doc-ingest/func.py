@@ -61,37 +61,45 @@ def main(context: Context):
         f'REQUEST:: {to_json(context.cloud_event)}', extra=source_attributes)
 
     data = context.cloud_event.data
+    notificationType = data["Records"][0]["eventName"]
     srcBucket = data["Records"][0]["s3"]["bucket"]["name"]
     srcObj = data["Records"][0]["s3"]["object"]["key"]
 
-    signed_url = get_signed_url(
-        srcBucket, srcObj)
-    logger.info(f'SIGNED URL:: {signed_url}', extra=source_attributes)
+    if notificationType == "s3:ObjectCreated:Put":
 
-    modelPath = "sentence-transformers/all-mpnet-base-v2"
-    model_kwargs = {'device':'cpu'}
-    encode_kwargs = {'normalize_embeddings': False}
-    embeddings = HuggingFaceEmbeddings(
-        model_name=modelPath,
-        cache_folder='/app/model',
-        model_kwargs=model_kwargs, 
-        encode_kwargs=encode_kwargs 
-    )
+        signed_url = get_signed_url(
+            srcBucket, srcObj)
+        logger.info(f'SIGNED URL:: {signed_url}', extra=source_attributes)
 
-    loader = WebBaseLoader(signed_url)
+        modelPath = "sentence-transformers/all-mpnet-base-v2"
+        model_kwargs = {'device':'cpu'}
+        encode_kwargs = {'normalize_embeddings': False}
+        embeddings = HuggingFaceEmbeddings(
+            model_name=modelPath,
+            cache_folder='/app/model',
+            model_kwargs=model_kwargs, 
+            encode_kwargs=encode_kwargs 
+        )
 
-    docs = loader.load()
+        loader = WebBaseLoader(signed_url)
 
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=250)
-    splitted_docs = text_splitter.split_documents(docs)
+        docs = loader.load()
 
-    MILVUS_HOST = os.environ['MILVUS_HOST']
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=250)
+        splitted_docs = text_splitter.split_documents(docs)
 
-    vector_db = Milvus.from_documents(
-        splitted_docs,
-        embeddings,
-        collection_name = 'doc_ingest',
-        connection_args={"host": MILVUS_HOST, "port": "19530"},
-    )
+        MILVUS_HOST = os.environ['MILVUS_HOST']
+
+        vector_db = Milvus.from_documents(
+            splitted_docs,
+            embeddings,
+            collection_name = 'doc_ingest',
+            connection_args={"host": MILVUS_HOST, "port": "19530"},
+        )
+        logger.info(f'Successfully embedded:: {notificationType}', extra=source_attributes)
+
+    else:
+        logger.info(f'Not processing:: {notificationType}', extra=source_attributes)
+
 
     return "", 204
