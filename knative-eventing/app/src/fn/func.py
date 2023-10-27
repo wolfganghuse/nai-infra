@@ -73,7 +73,7 @@ def main(context: Context):
     encode_kwargs = {'normalize_embeddings': False}
     embeddings = HuggingFaceEmbeddings(
         model_name=modelPath,
-        cache_folder='./models',
+        cache_folder='/app/model',
         model_kwargs=model_kwargs,
         encode_kwargs=encode_kwargs
     )
@@ -85,11 +85,13 @@ def main(context: Context):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=250)
     splitted_docs = text_splitter.split_documents(docs)
 
+    MILVUS_HOST = os.environ['MILVUS_HOST']
+
     vector_db = Milvus.from_documents(
         splitted_docs,
         embeddings,
         collection_name = 'doc_ingest',
-        connection_args={"host": "milvus-standalone.milvus-standalone", "port": "19530"},
+        connection_args={"host": MILVUS_HOST, "port": "19530"},
     )
 
     return "", 204
