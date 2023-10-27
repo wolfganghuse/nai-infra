@@ -62,11 +62,9 @@ def main(context: Context):
 
     data = context.cloud_event.data
     notificationType = data["Records"][0]["eventName"]
-    srcBucket = data["Records"][0]["s3"]["bucket"]["name"]
-    srcObj = data["Records"][0]["s3"]["object"]["key"]
-
     if notificationType == "s3:ObjectCreated:Put":
-
+        srcBucket = data["Records"][0]["s3"]["bucket"]["name"]
+        srcObj = data["Records"][0]["s3"]["object"]["key"]
         signed_url = get_signed_url(
             srcBucket, srcObj)
         logger.info(f'SIGNED URL:: {signed_url}', extra=source_attributes)
