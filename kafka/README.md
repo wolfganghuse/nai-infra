@@ -5,4 +5,4 @@ helm upgrade --install  kafka bitnami/kafka --create-namespace -n kafka -f value
 
 Change number of Partitions to allow scaling knative
 
-kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic OSSEvents --partitions 12
+kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic OSSEvents --partitions 4
