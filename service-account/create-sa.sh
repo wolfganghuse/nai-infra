@@ -1,3 +1,11 @@
+#!/bin/bash
+
+# Check if one argument is provided
+if [[ $# -ne 1 ]]; then
+    echo "Please provide service account name, usage: $0 nai-admin"
+    exit 1
+fi
+
 ACCOUNT=$1
 
 #Create SA

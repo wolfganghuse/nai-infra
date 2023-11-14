@@ -1,12 +1,25 @@
-standalone:
-  replicas: 1
-  resources:
-    limits:
-      cpu: "12.0"
-      memory: 16Gi
-    requests:
-      cpu: "12.0"
-      memory: 16Gi
+dataCoordinator:
+  replicas: 2
+  activeStandby: 
+    enabled: True
+dataNode:
+  replicas: 2
+indexCoordinator:
+  replicas: 2
+indexNode:
+  replicas: 2
+queryCoordinator:
+  replicas: 2
+  activeStandby: 
+    enabled: True
+queryNode:
+  replicas: 2
+rootCoordinator:
+  replicas: 2
+  activeStandby: 
+    enabled: True
+dataNode:
+  replicas: 2
 service:
   type: LoadBalancer
 minio:
@@ -23,10 +36,10 @@ attu:
 ###################################
 externalS3:
   enabled: true
-  host: "10.54.78.42"
+  host: "objects.blaze.dachlab.net"
   port: "80"
-  accessKey: "AAA"
-  secretKey: "BBB"
+  accessKey: "706ehpqy_BHab3rcA50KcqtnhK5vNiLg"
+  secretKey: "vpYgEzyCDDocNoBliNSALMFyiSEJSIWn"
   useSSL: false
   bucketName: "milvus"
   rootPath: ""
