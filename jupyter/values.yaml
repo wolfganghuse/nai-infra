@@ -2,6 +2,7 @@ singleuser:
   defaultUrl: "/lab"
   storage:
     capacity: 100Gi
+  extraTolerations: [{"key": "dedicated", "operator": "Equal", "value": "gpu", "effect": "NoSchedule"}]
   extraEnv:
     JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
   profileList:
@@ -19,3 +20,14 @@ singleuser:
       privateIPs: true
   cloudMetadata:
     blockWithIptables: false
+hub:
+  config:
+    Authenticator:
+      admin_users:
+        - admin
+      allowed_users:
+        - user
+    DummyAuthenticator:
+      password: nutanix.1
+    JupyterHub:
+      authenticator_class: dummy
