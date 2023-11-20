@@ -1,0 +1,6 @@
+data:
+  persistence:
+    size: 5Gi
+master:
+  persistence:
+    size: 5Gi
