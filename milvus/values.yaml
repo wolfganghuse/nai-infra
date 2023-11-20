@@ -1,3 +1,31 @@
+#ATTU Frontend
+attu:
+  enabled: true
+  name: attu
+  ingress:
+    enabled: true
+    annotations: {
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    }
+    ingressClassName: nginx
+    hosts:
+      - attu-dev.supportgpt.dachlab.net
+    tls:
+    - hosts:
+        - attu-dev.supportgpt.dachlab.net
+      secretName: attu-dev-tld-secret
+
+# imagePullSecrets, most images are hosted on docker.io
+# image:
+#   all:
+#     pullSecrets:
+#     - regcred
+# etcd:
+#   image:
+#     pullSecrets:
+#     - regcred
+
+# Milvus Cluster Mode
 dataCoordinator:
   replicas: 2
   activeStandby: 
@@ -18,28 +46,20 @@ rootCoordinator:
   replicas: 2
   activeStandby: 
     enabled: True
-dataNode:
-  replicas: 2
+
+# Exposing Milvus externally, only for migration phase
 service:
   type: LoadBalancer
+
+# Disable MinIO and configuring External S3
 minio:
   enabled: false
-attu:
-  enabled: true
-  name: attu
-  service:
-    type: LoadBalancer
-
-###################################
-# External S3
-# - these configs are only used when `externalS3.enabled` is true
-###################################
 externalS3:
   enabled: true
-  host: "objects.blaze.dachlab.net"
+  host: "host"
   port: "80"
-  accessKey: "706ehpqy_BHab3rcA50KcqtnhK5vNiLg"
-  secretKey: "vpYgEzyCDDocNoBliNSALMFyiSEJSIWn"
+  accessKey: "abc"
+  secretKey: "abc"
   useSSL: false
   bucketName: "milvus"
   rootPath: ""
