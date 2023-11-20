@@ -31,3 +31,17 @@ hub:
       password: nutanix.1
     JupyterHub:
       authenticator_class: dummy
+proxy:
+  service:
+    type: ClusterIP
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - jupyter.supportgpt.dachlab.net
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    - hosts:
+        - jupyter.supportgpt.dachlab.net
+      secretName: jupyter-tld-secret

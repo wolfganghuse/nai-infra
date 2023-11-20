@@ -1,0 +1,16 @@
+metrics-server:
+  enabled: false
+nginx:
+  enabled: false
+cert-manager:
+  enabled: false
+app:
+  ingress:
+    enabled: true
+    hosts:
+    - dashboard.supportgpt.dachlab.net
+    ingressClassName: nginx
+    secretName: kubernetes-dashboard-certs
+    issuer:
+      name: letsencrypt-prod
+      scope: cluster
