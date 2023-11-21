@@ -1,0 +1,57 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: thanos
+  namespace: monitoring
+  labels:
+    prometheus: thanos
+spec:
+  logLevel: info
+  podMetadata:
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    labels:
+      app: prometheus
+      thanos-store-api: "true"
+  thanos:
+    image: quay.io/thanos/thanos:v0.28.1
+    objectStorageConfig:
+      key: objects.properties
+      name: objects-thanos
+    resources:
+      limits:
+        cpu: 10m
+        memory: 50Mi
+      requests:
+        cpu: 10m
+        memory: 50Mi
+  replicas: 2
+  resources:
+    limits:
+      cpu: 100m
+      memory: 1Gi
+    requests:
+      cpu: 50m
+      memory: 400Mi
+  retention: 12h
+  serviceAccountName: prometheus-thanos
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector:
+    matchLabels:
+      monitoring: apps
+  alerting:
+    alertmanagers:
+      - namespace: ntnx-system
+        name: alertmanager-main
+        port: web
+  storage:
+    volumeClaimTemplate:
+      spec:
+        resources:
+          requests:
+            storage: 10Gi
+  version: v2.22.1
+  securityContext:
+    fsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000

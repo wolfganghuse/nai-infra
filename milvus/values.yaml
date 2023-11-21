@@ -51,6 +51,12 @@ rootCoordinator:
 service:
   type: LoadBalancer
 
+# Enabling Service Monitor
+metrics:
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      - monitoring: apps
 # Disable MinIO and configuring External S3
 minio:
   enabled: false

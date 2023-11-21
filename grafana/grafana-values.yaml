@@ -1,0 +1,29 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - grafana.supportgpt.dachlab.net
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    - hosts:
+        - grafana.supportgpt.dachlab.net
+      secretName: grafana-tld-secret
+persistence:
+  enabled: true
+# image:
+#   pullSecrets:
+#     - regcred
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus K8s
+        type: prometheus
+        url: http://prometheus-k8s.ntnx-system.svc.cluster.local:9090
+        access: proxy
+        isDefault: true
+      - name: Prometheus Apps
+        type: prometheus
+        url: http://thanos-query.monitoring.svc.cluster.local:9090
+        access: proxy
