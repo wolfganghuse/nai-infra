@@ -4,3 +4,10 @@ data:
 master:
   persistence:
     size: 5Gi
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    labels:
+      monitoring: apps
+    

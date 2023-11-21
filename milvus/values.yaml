@@ -56,7 +56,7 @@ metrics:
   serviceMonitor:
     enabled: true
     additionalLabels:
-      - monitoring: apps
+      monitoring: apps
 # Disable MinIO and configuring External S3
 minio:
   enabled: false
