@@ -2,6 +2,14 @@ singleuser:
   defaultUrl: "/lab"
   storage:
     capacity: 100Gi
+### Remove Extra Volumes if no shared (NFS-based) folder is used
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: jupyterhub-shared-volume
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
   extraTolerations: [{"key": "dedicated", "operator": "Equal", "value": "gpu", "effect": "NoSchedule"}]
   extraEnv:
     JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
