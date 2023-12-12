@@ -1,0 +1,5 @@
+toolkit:
+  version: v1.13.0-centos7
+devicePlugin:
+  config:
+    name: time-slicing-config
