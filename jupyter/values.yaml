@@ -3,13 +3,13 @@ singleuser:
   storage:
     capacity: 100Gi
 ### Remove Extra Volumes if no shared (NFS-based) folder is used
-    extraVolumes:
-      - name: jupyterhub-shared
-        persistentVolumeClaim:
-          claimName: jupyterhub-shared-volume
-    extraVolumeMounts:
-      - name: jupyterhub-shared
-        mountPath: /home/jovyan/shared
+    # extraVolumes:
+    #   - name: jupyterhub-shared
+    #     persistentVolumeClaim:
+    #       claimName: jupyterhub-shared-volume
+    # extraVolumeMounts:
+    #   - name: jupyterhub-shared
+    #     mountPath: /home/jovyan/shared
   extraTolerations: [{"key": "dedicated", "operator": "Equal", "value": "gpu", "effect": "NoSchedule"}]
   extraEnv:
     JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
@@ -34,7 +34,10 @@ hub:
       admin_users:
         - admin
       allowed_users:
-        - user
+        - user1
+        - user2
+        - user3
+        - user4
     DummyAuthenticator:
       password: nutanix.1
     JupyterHub:
@@ -46,11 +49,11 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - jupyter.supportgpt.dachlab.net
+    - jupyter.gpt-prod.dachlab.net
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 900m
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - jupyter.supportgpt.dachlab.net
+        - jupyter.gpt-prod.dachlab.net
       secretName: jupyter-tld-secret
