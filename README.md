@@ -1,7 +1,7 @@
 # nai-infra
 
 1. Deploy NKE Cluster (Production)
-K8s version: 1.25.6-0
+K8s version: 1.25.6-1 (NKE 2.9, OS Version 1.6)
 Resources:  3 cpu nodes with 12 vCPUs, 16G memory and 120 GB storage
 2. NKE Worker Pools
 - Create additional worker pool for GPU and add label nodepool:gpu
