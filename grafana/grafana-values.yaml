@@ -2,12 +2,12 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - grafana.supportgpt.dachlab.net
+    - grafana.gptdev1.cloudnative.nvdlab.net
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - grafana.supportgpt.dachlab.net
+        - grafana.gptdev1.cloudnative.nvdlab.net
       secretName: grafana-tld-secret
 persistence:
   enabled: true

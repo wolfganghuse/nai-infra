@@ -6,7 +6,7 @@ Configure base domain:
 ```
 kubectl patch configmap config-domain -n knative-serving --patch '
 data:
-  kubeflow.gptnvd.dachlab.net: ""
+  kubeflow.gptdev1.cloudnative.nvdlab.net: ""
 '
 ```
 

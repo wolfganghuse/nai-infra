@@ -9,10 +9,10 @@ attu:
     }
     ingressClassName: nginx
     hosts:
-      - attu-dev.supportgpt.dachlab.net
+      - attu-dev.gptdev1.cloudnative.nvdlab.net
     tls:
     - hosts:
-        - attu-dev.supportgpt.dachlab.net
+        - attu-dev.gptdev1.cloudnative.nvdlab.net
       secretName: attu-dev-tld-secret
 
 # imagePullSecrets, most images are hosted on docker.io
