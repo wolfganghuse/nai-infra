@@ -3,13 +3,6 @@ singleuser:
   storage:
     capacity: 100Gi
 ### Remove Extra Volumes if no shared (NFS-based) folder is used
-    extraVolumes:
-      - name: jupyterhub-shared
-        persistentVolumeClaim:
-          claimName: jupyterhub-shared-volume
-    extraVolumeMounts:
-      - name: jupyterhub-shared
-        mountPath: /home/jovyan/shared
   extraTolerations: [{"key": "dedicated", "operator": "Equal", "value": "gpu", "effect": "NoSchedule"}]
   extraEnv:
     JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
@@ -22,6 +15,11 @@ singleuser:
       kubespawner_override:
         extra_resource_limits:
           nvidia.com/gpu: "1"
+    - display_name: "Large GPU Server"
+      description: "Spawns a notebook server with access to a GPU"
+      kubespawner_override:
+        extra_resource_limits:
+          nvidia.com/gpu: "2"
   networkPolicy:
     egressAllowRules:
       cloudMetadataServer: true
@@ -46,11 +44,11 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - jupyter.supportgpt.dachlab.net
+    - jupyter.gpt-prod.dachlab.net
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 900m
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - jupyter.supportgpt.dachlab.net
+        - jupyter.gpt-prod.dachlab.net
       secretName: jupyter-tld-secret
