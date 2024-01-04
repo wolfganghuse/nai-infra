@@ -20,6 +20,8 @@ config:
       protocols:
         grpc:
           endpoint: "0.0.0.0:4317"
+    nginx:
+      endpoint: http://localhost:80/status
   processors:
     batch:
       send_batch_size: 10000
@@ -30,9 +32,9 @@ config:
       spike_limit_percentage: 15
   exporters:
     otlp/uptrace:
-      endpoint: uptrace.uptrace:14317
+      endpoint: uptrace.gptmgmt.cloudnative.nvdlab.net
       tls:
-        insecure: true
+        insecure: false
       headers:
         uptrace-dsn: 'http://project2_secret_token@localhost:14317/2'
   service:
@@ -42,7 +44,7 @@ config:
         processors: [batch]
         exporters: [otlp/uptrace]
       metrics:
-        receivers: [prometheus/central,otlp]
+        receivers: [prometheus/central,otlp, nginx]
         processors: [batch]
         exporters: [otlp/uptrace]
       logs:

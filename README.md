@@ -1,5 +1,25 @@
 # nai-infra
 
+## Versions used in this deployment
+metallb 0.13.10
+nginx-ingress 1.9.4
+cert manager 1.13.2
+Open Telemetry 0.91.0
+
+
+
+## Management Cluster
+1. Deploy NKE Cluster (Production)
+K8s version: 1.25.6-1 (NKE 2.9, OS Version 1.6)
+Resources:  3 cpu nodes with 12 vCPUs, 16G memory and 120 GB storage
+2. Download kubeconfig
+3. add long-term service account nai-admin
+4. Install MetalLB
+5. Install NGINX Ingress
+6. Install Cert Manager and configure for your DNS provider
+7. 
+
+## Workload Cluster
 1. Deploy NKE Cluster (Production)
 K8s version: 1.25.6-1 (NKE 2.9, OS Version 1.6)
 Resources:  3 cpu nodes with 12 vCPUs, 16G memory and 120 GB storage
