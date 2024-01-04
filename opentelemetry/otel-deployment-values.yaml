@@ -1,0 +1,51 @@
+mode: deployment
+replicaCount: 1
+presets:
+  clusterMetrics:
+    enabled: true
+  kubernetesEvents:
+    enabled: true
+config:
+  receivers:
+    prometheus/central:
+      config:
+        scrape_configs:
+        - job_name: 'deployment-collector'
+          scrape_interval: 30s
+          static_configs:
+          - targets: [ '0.0.0.0:8888' ]
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "0.0.0.0:4317"
+  processors:
+    batch:
+      send_batch_size: 10000
+      timeout: 10s
+    memory_limiter:
+      check_interval: 1s
+      limit_percentage: 75
+      spike_limit_percentage: 15
+  exporters:
+    otlp/uptrace:
+      endpoint: uptrace.uptrace:14317
+      tls:
+        insecure: true
+      headers:
+        uptrace-dsn: 'http://project2_secret_token@localhost:14317/2'
+  service:
+    pipelines:
+      traces:
+        receivers: [otlp]
+        processors: [batch]
+        exporters: [otlp/uptrace]
+      metrics:
+        receivers: [prometheus/central,otlp]
+        processors: [batch]
+        exporters: [otlp/uptrace]
+      logs:
+        receivers: [otlp]
+        processors: [batch]
+        exporters: [otlp/uptrace]
+
+    service:
