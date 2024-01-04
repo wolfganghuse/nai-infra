@@ -9,13 +9,6 @@ presets:
     enabled: true
 config:
   receivers:
-    prometheus/central:
-      config:
-        scrape_configs:
-        - job_name: 'deployment-collector'
-          scrape_interval: 30s
-          static_configs:
-          - targets: [ '0.0.0.0:8888' ]
     otlp:
       protocols:
         grpc:
@@ -30,9 +23,9 @@ config:
       spike_limit_percentage: 15
   exporters:
     otlp/uptrace:
-      endpoint: uptrace.uptrace:14317
+      endpoint: uptrace-grpc.gptmgmt.cloudnative.nvdlab.net:443
       tls:
-        insecure: true
+        insecure: false
       headers:
         uptrace-dsn: 'http://project2_secret_token@localhost:14317/2'
   service:
@@ -42,7 +35,7 @@ config:
         processors: [batch]
         exporters: [otlp/uptrace]
       metrics:
-        receivers: [prometheus/central,otlp]
+        receivers: [otlp]
         processors: [batch]
         exporters: [otlp/uptrace]
       logs:
