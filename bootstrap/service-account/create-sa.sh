@@ -8,11 +8,19 @@ fi
 
 ACCOUNT=$1
 
-#Create SA
-kubectl create sa $ACCOUNT
+#!/bin/bash
 
-#Create ClusterRoleBinding
-cat << EOF | kubectl create -f -
+# Check if 'admin' service account exists
+if kubectl get serviceaccount $ACCOUNT > /dev/null 2>&1; then
+    echo "Service account '$ACCOUNT' already exists."
+else
+  # Create the 'admin' service account
+  echo "Creating service account '$ACCOUNT'..."
+  #Create SA
+  kubectl create sa $ACCOUNT
+
+  #Create ClusterRoleBinding
+  cat << EOF | kubectl create -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -27,9 +35,9 @@ subjects:
   namespace: default
 EOF
 
-#Create Token and Cluster
+  #Create Token and Cluster
 
-cat << EOF | kubectl create -f -
+  cat << EOF | kubectl create -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -39,10 +47,12 @@ metadata:
 type: kubernetes.io/service-account-token
 EOF
 
-TOKEN=$(kubectl get secrets $ACCOUNT-secret -o jsonpath={.data.token} | base64 --decode)
-CLUSTER=$(kubectl config view --minify -o jsonpath='{.clusters[].name}')
+  TOKEN=$(kubectl get secrets $ACCOUNT-secret -o jsonpath={.data.token} | base64 --decode)
+  CLUSTER=$(kubectl config view --minify -o jsonpath='{.clusters[].name}')
 
-#Modifing KUBECONFIG
-kubectl config set-credentials $ACCOUNT --token=$TOKEN
-kubectl config set-context $ACCOUNT-context --cluster $CLUSTER --user $ACCOUNT
-kubectl config use-context $ACCOUNT-context
+  #Modifing KUBECONFIG
+  kubectl config set-credentials $ACCOUNT --token=$TOKEN
+  kubectl config set-context $ACCOUNT-context --cluster $CLUSTER --user $ACCOUNT
+  kubectl config use-context $ACCOUNT-context 
+  echo "Service account 'admin' created successfully."
+fi

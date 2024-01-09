@@ -19,7 +19,7 @@ echo "creating service account"
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
 
-kubectl wait --for condition=established crd metallb.io
+kubectl wait --for condition=established crd addresspools.metallb.io
 
 cat << EOF | kubectl create -f -
 apiVersion: metallb.io/v1beta1
@@ -45,7 +45,10 @@ echo "deploy argocd-core"
 
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.3/manifests/core-install.yaml
-kubectl wait --for condition=established crd argoproj.io
+kubectl wait --for condition=established crd applicationsets.argoproj.io
+
+echo "start cluster bootstrapping"
+kustomize build clusters/base/argocd | kubectl apply -f -
 
 echo "everything´s finished. To log into ArgoCD to check apps, run:"
 echo "kubectl config set-context --current --namespace=argocd"
