@@ -8,3 +8,12 @@ resources:
 - ipaddresspool.yaml
 
 namespace: metallb-system
+
+patches:
+  - target:
+      kind: IPAddressPool
+      name: subnetpool
+    patch: |-
+      - op: replace
+        path: /spec/addresses
+        value: 10.50.119.114-10.50.119.114
