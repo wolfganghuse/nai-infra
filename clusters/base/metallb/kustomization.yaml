@@ -4,5 +4,7 @@ kind: Kustomization
 resources:
 # metallb installation manifests
 - https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
+- l2advertisement.yaml
+- ipaddresspool.yaml
 
 namespace: metallb-system
