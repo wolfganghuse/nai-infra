@@ -5,6 +5,7 @@ metallb 0.13.10
 nginx-ingress 1.9.4
 cert manager 1.13.2
 Open Telemetry 0.91.0
+ArgoCD 2.9.3
 
 
 
