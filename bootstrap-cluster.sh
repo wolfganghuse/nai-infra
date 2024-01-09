@@ -41,16 +41,16 @@ metadata:
 EOF
 
 ### Handover to ArgoCD-Core
-echo "deploy argocd-core"
+# echo "deploy argocd-core"
 
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.3/manifests/core-install.yaml
-kubectl wait --for condition=established crd applicationsets.argoproj.io
+# kubectl create namespace argocd
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.3/manifests/core-install.yaml
+# kubectl wait --for condition=established crd applicationsets.argoproj.io
 
-echo "start cluster bootstrapping"
-kustomize build clusters/base/argocd | kubectl apply -f -
+# echo "start cluster bootstrapping"
+# kustomize build clusters/base/argocd | kubectl apply -f -
 
-echo "everything´s finished. To log into ArgoCD to check apps, run:"
-echo "kubectl config set-context --current --namespace=argocd"
-echo "argocd login --core"
+# echo "everything´s finished. To log into ArgoCD to check apps, run:"
+# echo "kubectl config set-context --current --namespace=argocd"
+# echo "argocd login --core"
 

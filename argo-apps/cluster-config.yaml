@@ -1,0 +1,6 @@
+key:
+  clusters:
+    - name: gpt01dev01
+      metallb: 10.50.119.113-10.50.119.113
+      fqdn: gpt01dev01.cloudnative.nvdlab.net
+      
