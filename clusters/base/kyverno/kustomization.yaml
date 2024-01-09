@@ -7,11 +7,4 @@ resources:
 # PullSecretPolicy 
 - pullsecret-policy.yaml
 
-patches:
-- path: argocd-cm.yaml
-
-namespace: argocd
-
-
-
-kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.10.1-rc.1/install.yaml
+namespace: kyverno
