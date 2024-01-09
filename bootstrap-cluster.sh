@@ -20,6 +20,7 @@ echo "creating service account"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
 
 kubectl wait --for condition=established crd addresspools.metallb.io
+kubectl wait --for condition=established webhook ipaddresspoolvalidationwebhook.metallb.io
 
 cat << EOF | kubectl create -f -
 apiVersion: metallb.io/v1beta1
