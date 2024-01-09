@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
 # cert-manager installation manifests
-- certmanager-ns.yaml
 - https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
 namespace: cert-manager
