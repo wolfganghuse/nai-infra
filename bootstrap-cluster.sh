@@ -25,7 +25,7 @@ cat << EOF | kubectl create -f -
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: cheap
+  name: subnetpool
   namespace: metallb-system
 spec:
   addresses:
