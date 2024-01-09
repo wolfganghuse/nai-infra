@@ -16,4 +16,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/addresses  # The '-' indicates adding to the end of the array
-        value: [10.50.119.114-10.50.119.114]
+        value: ["10.50.119.114-10.50.119.114"]
