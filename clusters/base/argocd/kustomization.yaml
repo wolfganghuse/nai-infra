@@ -12,8 +12,9 @@ resources:
 - in-cluster.yaml
 # argocd project for system applications
 - system-project.yaml
+- argocd-cm.yaml
 
-patches:
-- path: argocd-cm.yaml
+# patches:
+# - path: argocd-cm.yaml
 
 namespace: argocd
