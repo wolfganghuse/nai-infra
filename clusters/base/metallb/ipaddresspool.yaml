@@ -4,5 +4,5 @@ metadata:
   name: subnetpool
   namespace: metallb-system
 spec:
-  addresses: {}
+  addresses: 
   - 10.50.119.113-10.50.119.113
