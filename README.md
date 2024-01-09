@@ -7,7 +7,8 @@ cert manager 1.13.2
 Open Telemetry 0.91.0
 ArgoCD 2.9.3
 
-
+## Bootstrap Cluster
+kustomize build clusters/base/argocd | kubectl apply -f -
 
 ## Management Cluster
 1. Deploy NKE Cluster (Production)

@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+# MetalLB installation manifests
+- https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
+- ipaddresspool.yaml
+- l2advertisement.yaml
+
+namespace: cert-manager
