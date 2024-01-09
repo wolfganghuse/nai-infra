@@ -3,6 +3,6 @@ kind: Kustomization
 
 resources:
 # cert-manager installation manifests
-- https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
+- https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
-namespace: metallb-system
+namespace: cert-manager
