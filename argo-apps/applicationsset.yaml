@@ -4,39 +4,62 @@ metadata:
   name: cluster-bootstrap
   namespace: argocd
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+
   generators:
   - matrix:
       generators:
-      - matrix:
-          generators:
-          # enriches applications per directory in clusters/base with cluster labels
-          - clusters: {}
-          # produces argocd app per directory in clusters/base
-          - git:
-              repoURL: &repo https://github.com/wolfganghuse/nai-infra.git
-              directories:
-              - path: clusters/base/*
-    generators:
-      - git:
-          repoURL: https://github.com/wolfganghuse/nai-infra.git
-          revision: working-branch
-          files:
-          - path: argo-apps/cluster-config.yaml
-      - list:
-          elements: []
-          elementsYaml: "{{ .key.clusters | toJson }}"
+        - git:
+            repoURL: https://github.com/wolfganghuse/nai-infra.git
+            revision: working-branch
+            directories:
+            - path: clusters/base/*
+        - clusters:
+            selector:
+              matchLabels:
+                argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{.path.basename}}-{{.name}}'
     spec:
-      project: system
+      project: default
       source:
-        repoURL: *repo
-        path: '{{path}}'
+        repoURL: https://github.com/wolfganghuse/nai-infra.git
+        targetRevision: working-branch
+        path: '{{.path.path}}'
       destination:
-        server: '{{server}}'
-        namespace: argocd
+        server: '{{.server}}'
+        namespace: '{{.path.basename}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
+
+
+  # generators:
+  # - matrix:
+  #     generators:
+  #     - git:
+  #         repoURL: https://github.com/wolfganghuse/nai-infra.git
+  #         revision: working-branch
+  #         files:
+  #         - path: argo-apps/cluster-config.yaml
+  #     - list:
+  #         elements: []
+  #         elementsYaml: "{{ .key.clusters | toJson }}"
+  # template:
+  #   metadata:
+  #     name: '{{.name}}'
+  #   spec:
+  #     project: default
+  #     source:
+  #       repoURL: '{{.repoURL}}'
+  #       path: '{{.path}}'
+  #     destination:
+  #       server: '{{server}}'
+  #       namespace: argocd
+  #     syncPolicy:
+  #       automated:
+  #         prune: true
+  #         selfHeal: true

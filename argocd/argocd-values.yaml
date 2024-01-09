@@ -1,0 +1,16 @@
+configs:
+  params:
+    server.insecure: true
+server:
+  ingress:
+    enabled: true
+    annotations: {
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    }
+    ingressClassName: nginx
+    hosts:
+      - argocd.gpt01mgmt01.cloudnative.nvdlab.net
+    tls:
+    - hosts:
+        - argocd.gpt01mgmt01.cloudnative.nvdlab.net
+      secretName: argocd-tld-secret
