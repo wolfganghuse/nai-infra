@@ -16,4 +16,5 @@ patches:
     patch: |-
       - op: add
         path: /spec/addresses
-        value: 10.50.119.114-10.50.119.114
+        value: | -
+          - 10.50.119.114-10.50.119.114
