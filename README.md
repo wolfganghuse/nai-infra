@@ -8,7 +8,7 @@ Open Telemetry 0.91.0
 ArgoCD 2.9.3
 
 ## Bootstrap Cluster
-kustomize build clusters/base/argocd | kubectl apply -f -
+./bootstrap-cluster.sh a.a.a.a-a.a.a.b
 ### Log into ArgoCD-core
 kubectl config set-context --current --namespace=argocd
 argocd login --core
