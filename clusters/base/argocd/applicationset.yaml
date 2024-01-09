@@ -26,13 +26,13 @@ spec:
           # workaround for https://github.com/argoproj/argo-cd/issues/13118 - should use env directory name instead
           - git:
               repoURL: *repo
-              revision: HEAD
+              revision: main
               files:
               - path: clusters/groups/*/.env.yaml
           # discovers environment specific applications overrides
           - git:
               repoURL: *repo
-              revision: HEAD
+              revision: main
               directories:
               - path: clusters/groups/*/*
   template:
@@ -49,3 +49,7 @@ spec:
       syncPolicy:
         automated:
           prune: true
+          selfHeal: true
+        syncOptions:
+#          - CreateNamespace=true
+          - Replace=true

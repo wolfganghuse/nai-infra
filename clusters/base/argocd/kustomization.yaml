@@ -3,18 +3,18 @@ kind: Kustomization
 
 resources:
 # argocd namespace
-#- argocd-ns.yaml
+- argocd-ns.yaml
 # argocd core installation manifests
-#- https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.3/manifests/core-install.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.3/manifests/core-install.yaml
 # application set that automates applications management 
 - applicationset.yaml
 # cluster metadata
 - in-cluster.yaml
 # argocd project for system applications
 - system-project.yaml
-- argocd-cm.yaml
+#- argocd-cm.yaml
 
-# patches:
-# - path: argocd-cm.yaml
+patches:
+- path: argocd-cm.yaml
 
 namespace: argocd
