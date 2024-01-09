@@ -9,6 +9,9 @@ ArgoCD 2.9.3
 
 ## Bootstrap Cluster
 kustomize build clusters/base/argocd | kubectl apply -f -
+### Log into ArgoCD-core
+kubectl config set-context --current --namespace=argocd
+argocd login --core
 
 ## Management Cluster
 1. Deploy NKE Cluster (Production)

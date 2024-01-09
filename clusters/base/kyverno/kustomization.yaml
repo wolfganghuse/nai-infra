@@ -5,6 +5,6 @@ resources:
 # kyverno installation manifests
 - https://github.com/kyverno/kyverno/releases/download/v1.11.3/install.yaml
 # PullSecretPolicy 
-- pullsecret-policy.yaml
+#- pullsecret-policy.yaml
 
 namespace: kyverno
