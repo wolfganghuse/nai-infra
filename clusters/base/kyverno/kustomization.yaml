@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 # kyverno installation manifests
-- https://github.com/kyverno/kyverno/releases/download/v1.11.3/install.yaml
+- https://github.com/kyverno/kyverno/releases/download/v1.10.0/install.yaml
 # PullSecretPolicy 
 #- pullsecret-policy.yaml
 
