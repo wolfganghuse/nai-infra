@@ -35,5 +35,11 @@ Resources:  At least 1 gpu node with 12 vCPUs, 40G memory and 120 GB storage
 - Add taints to new gpu pool
 3. Download kubeconfig
 4. add long-term service account
+4. Install MetalLB (2 IPs, Ingress, IstIO Ingress)
+5. Install NGINX Ingress
 5. Install GPU-Operator
-
+6. Install kserve
+6a. Install clusterstoragecontainer from nai-helm
+7. customize kserve according to README
+8. Install Milvus
+9. Install NAI-Helm

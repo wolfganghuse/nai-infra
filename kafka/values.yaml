@@ -1,16 +1,28 @@
 externalAccess:
   enabled: true
-  service:
-    broker:
-      type: LoadBalancer
+  controller:
+    service:
+      type: ClusterIP
       ports:
         external: 9094
-    controller:
-      type: LoadBalancer
-      containerPorts:
+      domain: 'kafka.gpt01dev01.cloudnative.nvdlab.net'
+  broker:
+    service:
+      type: ClusterIP
+      port:
         external: 9094
-  autoDiscovery:
-    enabled: true
+    domain: 'kafka.gpt01dev01.cloudnative.nvdlab.net'
+#  service:
+#    broker:
+#      type: NodePort
+#      ports:
+#        external: 9094
+#    controller:
+#      type: NodePort
+#      containerPorts:
+#        external: 9094
+#  autoDiscovery:
+#    enabled: true
 serviceAccount:
   create: true
 rbac:

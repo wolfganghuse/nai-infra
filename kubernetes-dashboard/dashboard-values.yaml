@@ -8,7 +8,7 @@ app:
   ingress:
     enabled: true
     hosts:
-    - dashboard.supportgpt.dachlab.net
+    - dashboard.gpt01dev01.cloudnative.nvdlab.net
     ingressClassName: nginx
     secretName: kubernetes-dashboard-certs
     issuer:

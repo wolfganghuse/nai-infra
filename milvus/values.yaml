@@ -9,21 +9,21 @@ attu:
     }
     ingressClassName: nginx
     hosts:
-      - attu-dev.supportgpt.dachlab.net
+      - attu.gpt01dev01.cloudnative.nvdlab.net
     tls:
     - hosts:
-        - attu-dev.supportgpt.dachlab.net
-      secretName: attu-dev-tld-secret
+        - attu.gpt01dev01.cloudnative.nvdlab.net
+      secretName: attu-tld-secret
 
 # imagePullSecrets, most images are hosted on docker.io
-# image:
-#   all:
-#     pullSecrets:
-#     - regcred
-# etcd:
-#   image:
-#     pullSecrets:
-#     - regcred
+image:
+  all:
+    pullSecrets:
+    - regcred
+etcd:
+  image:
+    pullSecrets:
+    - regcred
 
 # Milvus Cluster Mode
 dataCoordinator:
@@ -48,8 +48,8 @@ rootCoordinator:
     enabled: True
 
 # Exposing Milvus externally, only for migration phase
-service:
-  type: LoadBalancer
+# service:
+#   type: LoadBalancer
 
 # Enabling Service Monitor
 metrics:
@@ -62,12 +62,12 @@ minio:
   enabled: false
 externalS3:
   enabled: true
-  host: "host"
-  port: "80"
-  accessKey: "abc"
-  secretKey: "abc"
-  useSSL: false
-  bucketName: "milvus"
+  host: "objects.gptnvd.cloudnative.nvdlab.net"
+  port: "443"
+  accessKey: "CQOMv5DUU0B6j5n54clYOLWq76rk8NiF"
+  secretKey: "KwwL-awrstHUS6_hXO-SRTW5Qm28SUD_"
+  useSSL: true
+  bucketName: "gpt01dev01-milvus"
   rootPath: ""
   region: "us-east-1"
   useVirtualHost: false
