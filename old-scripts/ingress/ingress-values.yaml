@@ -1,3 +1,10 @@
+tcp:
+  9092: "kafka/kafka:9092"
+  9094: "kafka/kafka-controller-0-external:9094"
+  9095: "kafka/kafka-controller-0-external:9094"
+  9096: "kafka/kafka-controller-0-external:9094"
+  19530: "milvus/milvus-vectordb:19530"
+
 controller:
   opentelemetry:
     enabled: true

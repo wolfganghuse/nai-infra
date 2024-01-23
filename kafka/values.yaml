@@ -1,3 +1,10 @@
+listeners:
+  client:
+    protocol: PLAINTEXT
+  controller:
+    protocol: PLAINTEXT
+  external:
+    protocol: PLAINTEXT
 externalAccess:
   enabled: true
   controller:
@@ -5,13 +12,13 @@ externalAccess:
       type: ClusterIP
       ports:
         external: 9094
-      domain: 'kafka.gpt01dev01.cloudnative.nvdlab.net'
+      domain: 'kafka.gpt01mgmt01.cloudnative.nvdlab.net'
   broker:
     service:
       type: ClusterIP
       port:
         external: 9094
-    domain: 'kafka.gpt01dev01.cloudnative.nvdlab.net'
+      domain: 'kafka.gpt01mgmt01.cloudnative.nvdlab.net'
 #  service:
 #    broker:
 #      type: NodePort

@@ -6,7 +6,7 @@ Configure base domain:
 ```
 kubectl patch configmap config-domain -n knative-serving --patch '
 data:
-  gpt01dev01.cloudnative.nvdlab.net: ""
+  gpt01mgmt01.cloudnative.nvdlab.net: ""
 '
 ```
 

@@ -49,11 +49,11 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - jupyter.gpt01dev01.cloudnative.nvdlab.net
+    - jupyter.gpt01mgmt01.cloudnative.nvdlab.net
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 900m
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - jupyter.gpt01dev01.cloudnative.nvdlab.net
+        - jupyter.gpt01mgmt01.cloudnative.nvdlab.net
       secretName: jupyter-tld-secret

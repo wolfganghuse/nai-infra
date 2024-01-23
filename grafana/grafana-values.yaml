@@ -2,12 +2,12 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - grafana.gpt01dev01.cloudnative.nvdlab.net
+    - grafana.gpt01mgmt01.cloudnative.nvdlab.net
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - grafana.gpt01dev01.cloudnative.nvdlab.net
+        - grafana.gpt01mgmt01.cloudnative.nvdlab.net
       secretName: grafana-tld-secret
 persistence:
   enabled: true

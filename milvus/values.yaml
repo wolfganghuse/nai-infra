@@ -9,10 +9,10 @@ attu:
     }
     ingressClassName: nginx
     hosts:
-      - attu.gpt01dev01.cloudnative.nvdlab.net
+      - attu.gpt01mgmt01.cloudnative.nvdlab.net
     tls:
     - hosts:
-        - attu.gpt01dev01.cloudnative.nvdlab.net
+        - attu.gpt01mgmt01.cloudnative.nvdlab.net
       secretName: attu-tld-secret
 
 # imagePullSecrets, most images are hosted on docker.io
@@ -67,7 +67,7 @@ externalS3:
   accessKey: "CQOMv5DUU0B6j5n54clYOLWq76rk8NiF"
   secretKey: "KwwL-awrstHUS6_hXO-SRTW5Qm28SUD_"
   useSSL: true
-  bucketName: "gpt01dev01-milvus"
+  bucketName: "gpt01mgmt01-milvus"
   rootPath: ""
   region: "us-east-1"
   useVirtualHost: false
